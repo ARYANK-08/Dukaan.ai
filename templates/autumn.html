@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+  {% load static %}
+  {% block title %}
+  Seasonal analysis
+  {% endblock title %}
+  {% block content %}
+
+
+<div class="card">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        max-width: 800px; /* Limit container width */
+        margin: 0 auto; /* Center container */
+        padding-top: 20px;
+      }
+      .column {
+        flex-basis: 45%; /* Adjust based on your preference */
+        margin: 10px;
+      }
+      .chart-container {
+        margin-bottom: 20px;
+      }
+    </style>
+
+    <center><h3>Seasonal Analysis</h3></center>
+    <div class="container">
+
+      <div class="column">
+
+       <div class="column">
+        {% comment %} <div class="chart-container">
+          <canvas id="summer-chart" width="700" height="500"></canvas>
+        </div> {% endcomment %}
+        <div class="chart-container">
+          <canvas id="autumn-chart" width="700" height="500"></canvas>
+          
+        </div>  
+        <br>
+        <div class="button-container">
+          <a button class="btn btn-primary" type="button" href="/seasonal_products" >Go back</a>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var seasonalData = {
+            "Autumn": {
+                "top_products": {
+                    "Hand Cream": 2770,
+                    "Face Wash": 1830,
+                    "Serum": 1085,
+                    "Sweaters": 950,
+                    "Pumpkin Spice Candle": 820,
+                    "Autumn Scarves": 750,
+                    "Boots": 680,
+                    "Apple Cider Shampoo": 600,        // Added new product
+                    "Fall Scented Potpourri": 550,    // Added new product
+                    "Harvest-themed Candles": 500,    // Added new product
+                    "Cozy Blankets": 450              // Added new product
+                }
+            },
+        };
+    function renderBarChart(data, canvasId, title) {
+        var ctx = document.getElementById(canvasId).getContext('2d');
+        var labels = Object.keys(data);
+        var values = Object.values(data);
+        var chartData = {
+          labels: labels,
+          datasets: [{
+            label: title,
+            data: values,
+            backgroundColor: ['#5e72e4', '#9b02fa', '#6902fa']
+          }]
+        };
+        var chartOptions = {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        };
+        var barChart = new Chart(ctx, {
+          type: 'bar',
+          data: chartData,
+          options: chartOptions
+        });
+      }
+
+      renderBarChart(seasonalData.Autumn.top_products, 'autumn-chart', 'Top Products (Autumn)');
+    });
+  </script>
+
+  
+    </body>
+    
+  {% endblock %}

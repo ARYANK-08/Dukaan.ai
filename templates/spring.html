@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+  {% load static %}
+  {% block title %}
+  Seasonal analysis
+  {% endblock title %}
+  {% block content %}
+
+
+<div class="card">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        max-width: 800px; /* Limit container width */
+        margin: 0 auto; /* Center container */
+        padding-top: 20px;
+      }
+      .column {
+        flex-basis: 45%; /* Adjust based on your preference */
+        margin: 10px;
+      }
+      .chart-container {
+        margin-bottom: 20px;
+      }
+    </style>
+
+    <center><h3>Seasonal Analysis</h3></center>
+    <div class="container">
+
+      <div class="column">
+
+    <div class="chart-container">
+          <canvas id="spring-chart" width="700" height="500"></canvas>
+        </div>
+      </div>
+      {% comment %} <div class="column">
+        <div class="chart-container">
+          <canvas id="summer-chart" width="700" height="500"></canvas>
+        </div>
+        <div class="chart-container">
+          <canvas id="autumn-chart" width="700" height="500"></canvas>
+          
+        </div>  {% endcomment %}
+        <br>
+        <div class="button-container">
+          <a button class="btn btn-primary" type="button" href="/seasonal_products" >Go back</a>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var seasonalData = {
+            "Spring": {
+                "top_products": {
+                    "Floral Perfume": 1870,
+                    "Body Lotion": 1230,
+                    "Shower Gel": 1100,
+                    "Sunscreen": 950,
+                    "Hair Mist": 800,
+                    "Spring Dresses": 720,
+                    "Sunglasses": 600,
+                    "Cherry Blossom Perfume": 550,     // Added new product
+                    "Garden Hat": 500,                 // Added new product
+                    "Pollen Allergy Relief": 450,      // Added new product
+                    "Springtime Candles": 400          // Added new product
+                }
+            },
+        };
+    function renderBarChart(data, canvasId, title) {
+        var ctx = document.getElementById(canvasId).getContext('2d');
+        var labels = Object.keys(data);
+        var values = Object.values(data);
+        var chartData = {
+          labels: labels,
+          datasets: [{
+            label: title,
+            data: values,
+            backgroundColor: ['#5e72e4', '#9b02fa', '#6902fa']
+          }]
+        };
+        var chartOptions = {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        };
+        var barChart = new Chart(ctx, {
+          type: 'bar',
+          data: chartData,
+          options: chartOptions
+        });
+      }
+
+      renderBarChart(seasonalData.Spring.top_products, 'spring-chart', 'Top Products (Spring)');
+    });
+  </script>
+
+  
+    </body>
+    
+  {% endblock %}

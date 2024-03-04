@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+<!-- Modal for Top Selling Products -->
+<button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#topSellingProductsModal">
+    View Top Selling Products
+</button>
+
+<div class="modal fade" id="topSellingProductsModal" tabindex="-1" role="dialog" aria-labelledby="topSellingProductsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="topSellingProductsModalLabel">Top Selling Products</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for product, quantity in top_selling_products %}
+                        <li>{{ product }} - Quantity: {{ quantity }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<!-- Modal for Frequent Purchase Items -->
+<button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#frequentPurchaseItemsModal">
+    View Frequently purchased products
+</button>
+
+<div class="modal fade" id="frequentPurchaseItemsModal" tabindex="-1" role="dialog" aria-labelledby="frequentPurchaseItemsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="frequentPurchaseItemsModalLabel">Frequently Purchased Items</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for itemset, support in frequent_itemsets %}                       
+                            <li>{{ itemset }} - Support: {{ support|floatformat:"4" }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% for shelf, products in shelves.items %}
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header p-3">
+                        <h5 class="card-title">{{ shelf }}</h5>
+                    </div>
+                    <div class="card-body pt-2">
+                        <div class="author align-items-center">
+                            {% for product in products %}
+                                <div class="name ps-3">
+                                    <span>{{ product }}</span>
+                                    
+                                    <!-- <img src="{% static 'assets/img/apriori.png' %}" alt="Product Image" class="avatar shadow"> -->
+                                </div>
+                            {% empty %}
+                                <div class="name ps-3">
+                                    <span>No products</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
