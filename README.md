@@ -1,6 +1,9 @@
 #Retail Shelf Space Optimization 
+
 Link : https://devfolio.co/projects/dukaanai-8def
+
 In retail, optimizing shelf space directly impacts product visibility, customer experience, and sales.
+
 Tool that optimizes product allocation to limited shelf space considering factors like popularity, seasonality, and profit margins.
 
 ![Screenshot 2024-03-05 033718](https://github.com/ARYANK-08/Dukaan.ai/assets/120780784/42735003-6118-4e85-aa12-e1968b32af93)
